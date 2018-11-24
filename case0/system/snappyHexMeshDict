@@ -21,18 +21,29 @@ addLayers       true;
 
 geometry
 {
-    CFD-ASSY.stl
+    BW.stl
     {
         type triSurfaceMesh;
-        name vehicle;
-
-        regions
-        {
-            BW { name BW; }
-            FW { name FW; }
-            FLWh { name FLWh; }
-        }
+        name BW;
     }
+    FLWh.stl
+    {
+        type triSurfaceMesh;
+        name FLWh;
+    }
+    FW.stl
+    {
+        type triSurfaceMesh;
+        name FW;
+    }
+
+    refinementBox
+    {
+        type searchableBox;
+        min (-1.0 -1.2 0.0);
+        max ( 8.0  0.0 2.5);
+    }
+
 }
 
 // Settings for the castellatedMesh generation.
@@ -77,10 +88,19 @@ castellatedMeshControls
     // This is a featureEdgeMesh, read from constant/triSurface for now.
     features
     (
-        {
-            file "CFD-ASSY.eMesh";
-            level 6;
-        }
+
+	{
+	    file "BW.eMesh";
+	    level 6;
+	}
+	{
+	    file "FLWh.eMesh";
+	    level 6;
+	}
+	{
+	    file "FW.eMesh";
+	    level 6;
+	}
     );
 
     // Surface based refinement
@@ -94,29 +114,20 @@ castellatedMeshControls
 
     refinementSurfaces
     {
-        vehicle
+        BW
         {
             level (5 6);
-
-            regions
-            {
-                BW
-                {
-                    level (5 6);
-                    patchinfo { type wall; }
-                }
-                }
-                FW
-                {
-                    level (7 9);
-                    patchinfo { type wall; }
-                }
-                FLWh
-                {
-                    level (7 9);
-                    patchinfo { type wall; }
-                }
-            }
+	    patchinfo { type wall; }
+	}
+        FW
+        {
+            level (7 9);
+            patchinfo { type wall; }
+        }
+        FLWh
+        {
+            level (7 9);
+            patchinfo { type wall; }
         }
     }
 
@@ -139,20 +150,10 @@ castellatedMeshControls
 
     refinementRegions
     {
-        refinementBox1
+        refinementBox
         {
             mode inside;   
             levels ((1E15 2));
-        }
-        refinementBox2
-        {
-            mode inside;   
-            levels ((1E15 4));
-        }
-        refinementBox3
-        {
-            mode inside;   
-            levels ((1E15 7));
         }
     }
 

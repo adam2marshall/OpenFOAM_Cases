@@ -18,8 +18,8 @@ convertToMeters 1;
 
 xmin -20;
 xmax  50;
-ymin -10;
-ymax  10;
+ymin  -10;
+ymax  0;
 zmin  0;
 zmax  15;
 
@@ -58,31 +58,31 @@ edges
 
 boundary
 (
-    top
+    sym
     {
-        type wall;
+        type symmetry;
         faces
         (
             (3 7 6 2)
         );
     }
-    left
+    in
     {
-        type wall;
+        type inlet;
         faces
         (
             (0 4 7 3)
         );
     }
-    right
+    out
     {
-        type wall;
+        type outlet;
         faces
         (
             (2 6 5 1)
         );
     }
-    bottom
+    side
     {
         type wall;
         faces
@@ -90,7 +90,7 @@ boundary
             (0 1 5 4)
         );
     }
-    front
+    top
     {
         type wall;
         faces
@@ -98,9 +98,9 @@ boundary
             (4 5 6 7)
         );
     }
-    back
+    ground
     {
-        type wall;
+        type noslip;
         faces
         (
             (0 3 2 1)
