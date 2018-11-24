@@ -23,42 +23,42 @@ patches
         name inlet;  // Name of new patch
         patchInfo { type patch; }
         constructFrom patches;  //or 'set'
-        patches (left); //name of patch to create from
+        patches (in); //name of patch to create from
     }
 
     {
         name outlet;
         patchInfo { type patch; }
         constructFrom patches;
-        patches (right);
+        patches (out);
     }
 
     {
         name side1;
         patchInfo { type symmetry; }
         constructFrom patches;
-        patches (bottom);
+        patches (sym);
     }
 
     {
         name side2;
         patchInfo { type symmetry; }
         constructFrom patches;
-        patches (top);
+        patches (side);
     }
 
     {
         name top1;
         patchInfo { type symmetry; }
         constructFrom patches;
-        patches (front);
+        patches (top);
     }
 
     {
         name ground;
         patchInfo { type symmetry; }
         constructFrom patches;
-        patches (back);
+        patches (ground);
     }
 
 );
