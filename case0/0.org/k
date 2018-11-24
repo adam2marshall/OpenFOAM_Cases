@@ -35,7 +35,7 @@ boundaryField
     {
         //type            kqRWallFunction;
         //value           uniform 0.1666;
-        type            symmetry;
+        type            slip;
     }
     top
     {
