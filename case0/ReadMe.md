@@ -6,27 +6,33 @@ Export the geometry from Onshape as individual STLs and rename them to remove th
 ## Commands
 
 #### Clean things up:
+```
 foamCleanPolyMesh
 foamCleanTutorials
-
+```
 #### Mesh:
+```
 blockMesh
 surfaceFeatureExtract
 snappyHexMesh
 checkMesh
-
+```
 #### Sort out the patches
+```
 createPatch -dict system/createPatchDict0
 createPatch -dict system/createPatchDict1
 rm -rf constant/polyMesh/
 cp -r 5/polyMesh/ constant/
 rm -rf 5/ 4/ 3/ 2/ 1/
-
+```
 #### Run!
+```
 cp -r 0.org/ 0
 simpleFoam > log.simplefoam | tail -f log.simplefoam
-
+```
 #### Plot residuals in a new window
+```
 gnuplot residuals
+```
 
 
