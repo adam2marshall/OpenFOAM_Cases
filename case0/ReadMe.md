@@ -28,6 +28,7 @@ rm -rf 5/ 4/ 3/ 2/ 1/
 #### Run!
 ```
 cp -r 0.org/ 0
+potentialFoam
 simpleFoam > log.simplefoam | tail -f log.simplefoam
 ```
 #### Plot residuals in a new window
