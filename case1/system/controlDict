@@ -48,6 +48,8 @@ functions
 {
     #include "yPlus"
     #include "forceCoeffs"
+	#include "forcesIncompressible"
+	#include "cuttingPlane"
 }
 
 // ************************************************************************* //
