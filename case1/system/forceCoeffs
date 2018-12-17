@@ -17,14 +17,14 @@ forceCoeffs1
 
     log             yes;
 
-    patches         (BW FLOOR FLWh FRWh FW RLWh RRWh RW);
+    patches         (BW FLOOR FLWh);
     rho             rhoInf;      // Indicates incompressible
     rhoInf          1;           // Redundant for incompressible
     liftDir         (0 0 1);
     dragDir         (1 0 0);
-    CofR            (0.72 0 0);  // Axle midpoint on ground
+    CofR            (-1.07 0 0);  // 1/4 Chord Point
     pitchAxis       (0 1 0);
-    magUInf         20;
+    magUInf         40;
     lRef            0.29;        // Wing Chord
     Aref            1.4;        // Wing Planform Area 
     /*
