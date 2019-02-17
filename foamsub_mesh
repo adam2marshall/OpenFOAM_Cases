@@ -10,7 +10,8 @@
 #PBS -M adam2.marshall@northumbria.ac.uk
 
 
-cd  $PBS_O_Cases
+cd  $PBS_O_WORKDIR
+module load openfoam
 
 blockMesh
 decomposePar

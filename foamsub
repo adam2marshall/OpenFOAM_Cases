@@ -12,6 +12,7 @@
 #############################################
 
 cd $PBS_O_WORKDIR
+module load openfoam
 
 decomposePar -force
 mpirun -np 8 renumberMesh -parallel -overwrite
