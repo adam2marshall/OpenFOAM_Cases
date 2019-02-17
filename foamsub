@@ -1,0 +1,21 @@
+#!/bin/bash
+
+
+#############################################
+#PBS -N AM_OF_casex_y
+#PBS -l nodes=1:ppn=8
+#PBS -l walltime=96:00:00
+#PBS -j oe
+#PBS -V
+#PBS -m bea
+#PBS -M adam2.marshall@northumbria.ac.uk
+#############################################
+
+cd $PBS_O_WORKDIR
+
+decomposePar -force
+mpirun -np 8 renumberMesh -parallel -overwrite
+mpirun -np 8 potentialFoam -initialiseUBCs -noFunctionObjects -parallel
+mpirun -np 8 simpleFoam -parallel > log.simplefoam | tail -f log.simplefoam
+
+reconstructPar -latestTime 

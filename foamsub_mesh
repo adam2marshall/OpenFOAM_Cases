@@ -1,0 +1,27 @@
+#!/bin/bash
+
+
+#PBS -N AM_OFmesh_casex_y
+#PBS -l nodes=1:ppn=8
+#PBS -l walltime=96:00:00
+#PBS -j oe
+#PBS -V
+#PBS -m bea
+#PBS -M adam2.marshall@northumbria.ac.uk
+
+
+cd  $PBS_O_Cases
+
+blockMesh
+decomposePar
+mpirun -np 8 snappyHexMesh -parallel -dict system/snappyHexMeshDict -overwrite 
+mpirun -np 8 checkMesh -parallel 
+reconstructParMesh -constant
+
+createPatch -dict system/createPatchDict0
+createPatch -dict system/createPatchDict1
+rm -rf constant/polyMesh/
+cp -r 5/polyMesh/ constant/
+rm -rf 5/ 4/ 3/ 2/ 1/
+cp -r 0.org/ 0
+
