@@ -1,22 +1,27 @@
 #!/bin/bash
 
+##########################
+#SBATCH --time 48:00:00 #specify a time limit for the job.
+#SBATCH --job-name=AM_OF
+#SBATCH --output am_of-%j.out
+#SBATCH --partition=48hour
+#SBATCH --nodes=2
+#SBATCH --ntasks-per-node=28
+#SBATCH --exclusive
+#SBATCH --mail-user=adam2.marshall@northumbria.ac.uk
+#SBATCH --mail-type=ALL
+##########################
 
-#############################################
-#PBS -N AM_OF_casex_y
-#PBS -l nodes=1:ppn=8
-#PBS -l walltime=96:00:00
-#PBS -j oe
-#PBS -V
-#PBS -m bea
-#PBS -M adam2.marshall@northumbria.ac.uk
-#############################################
+nodes=$SLURM_JOB_NUM_NODES            # Number of nodes
+cores=28                              # number of cores
 
-cd $PBS_O_WORKDIR
-module load openfoam
+sed -i "/numberOfSubdomains/c\\numberOfSubdomains    $(($nodes*$cores));" system/decomposeParDict
 
+# Run the solution (parallel)
+echo "SOLVING..."
 decomposePar -force
-mpirun -np 8 renumberMesh -parallel -overwrite
-mpirun -np 8 potentialFoam -initialiseUBCs -noFunctionObjects -parallel
-mpirun -np 8 simpleFoam -parallel > log.simplefoam | tail -f log.simplefoam
+mpirun -np $(($nodes*$cores)) renumberMesh -parallel -overwrite
+mpirun -np $(($nodes*$cores)) potentialFoam -initialiseUBCs -noFunctionObjects -parallel
+mpirun -np $(($nodes*$cores)) simpleFoam -parallel
 
-reconstructPar -latestTime 
+reconstructPar -latestTime
